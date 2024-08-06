@@ -1,0 +1,6 @@
+[
+  {
+    "name": "windows-images",
+    "imageUri": "973905176396.dkr.ecr.eu-north-1.amazonaws.com/windows-images:latest"
+  }
+]

@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - yum install -y zip
+
+  pre_build:
+    commands:
+      - echo Preparing environment...
+      - aws --version
+      - echo Setting up environment variables...
+      - S3_BUCKET="windows-container-cicd-thee-973905176396-eu-north-1-source"
+      - ZIP_FILE="src.zip"
+
+  build:
+    commands:
+      - echo Starting build process...
+      - echo Zipping files...
+      - zip -r $ZIP_FILE .
+
+  post_build:
+    commands:
+      - echo Build completed.
+      - echo Uploading $ZIP_FILE to S3...
+      - aws s3 cp $ZIP_FILE s3://$S3_BUCKET/
+
+
+artifacts:
+  files:
+    - $ZIP_FILE
+
